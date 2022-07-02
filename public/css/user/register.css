@@ -1,0 +1,55 @@
+.headerRegister {
+    font-weight: 800;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    padding: 0.8rem;
+}
+
+.headerRegister p {
+    margin: 0;
+}
+
+.headerRegister p:nth-child(2) {
+    margin-left: 1rem;
+    font-weight: 500;
+    padding: 0.2rem;
+    border: 1px solid black;
+    border-radius: 0.5rem;
+}
+
+.bodyRegister label {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.phone-register {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.phone-register p {
+    margin: 0;
+    margin-right: 0.5rem;
+}
+
+.registerName input,
+.registerBirthplace input,
+.registerAddress textarea {
+    text-transform: capitalize;
+}
+
+.registerButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.registerBtn {
+    width: 50%;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
