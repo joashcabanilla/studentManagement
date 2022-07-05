@@ -8,6 +8,9 @@ $(".sidemenu-link").click(() => {
 
 $(".logout").click((e) => {
     e.preventDefault();
-    console.log("logout");
     $("#logout-form").submit();
+});
+
+$("main").click(() => {
+    $(".sidemenu").hasClass("show") ? $(".sidemenu").removeClass('show') : null;
 });

@@ -1,14 +1,41 @@
 .dash-content {
     width: 100%;
     height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
 
-.dash-content div {
-    box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
+.container-chart {
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
     border-radius: 1rem;
-    background: #fff;
-    width: 100%;
+    background: #ffffff;
     height: 100%;
+    width: 100%;
     margin: 0.5rem;
-    padding: 1rem;
+    margin-top: 1rem;
+}
+
+.line-chart {
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+    border-radius: 1rem;
+    background: #ffffff;
+    margin: 0.5rem;
+    margin-top: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+    .dash-content {
+        flex-wrap: nowrap;
+    }
+
+    .container-chart {
+        height: 15rem;
+    }
+
+    .line-chart {
+        height: 22rem;
+    }
+
 }

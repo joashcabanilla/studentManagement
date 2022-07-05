@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="dash-content">
-    <div id="GenderChart"></div>
-    <div>line chart new user per day</div>
-    <div>column chart - by age of all user</div>
+    <div id="GenderChart" class="container-chart"></div>
+    <div id="AgeChart" class="container-chart"></div>
 </div>
+<div id="StudentChart" class="line-chart"></div>
 @endsection

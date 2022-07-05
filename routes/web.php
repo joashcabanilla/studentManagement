@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminHomeController;
 use App\Http\Controllers\User\UserHomeController;
+use App\Http\Controllers\studentController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -16,7 +17,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::prefix('admin')->middleware(['auth','isAdmin'])->group(
     function(){
         Route::get('/',[AdminHomeController::class, 'index'])->name('admin.index');
-        Route::get('/dashboard',[AdminHomeController::class, 'index']);
         Route::get('/student',[AdminHomeController::class, 'studentAccount']);
         Route::get('/announcement',[AdminHomeController::class, 'announcement']);
         Route::get('/account',[AdminHomeController::class, 'adminAccount']);
@@ -29,3 +29,5 @@ Route::prefix('user')->middleware(['auth','isUser'])->group(
         Route::get('/',[UserHomeController::class, 'index'])->name('user.index');
     }
 );
+
+Route::get('/student',[studentController::class, 'index']);

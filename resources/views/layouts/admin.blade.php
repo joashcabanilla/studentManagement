@@ -15,10 +15,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-   <!-- Charting library -->
+    <!-- Chart library -->
     <script src="https://unpkg.com/chart.js@^2.9.3/dist/Chart.min.js"></script>
     <!-- Chartisan -->
     <script src="https://unpkg.com/@chartisan/chartjs@^2.1.0/dist/chartisan_chartjs.umd.js"></script>
+
+    {{-- datatable --}}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
+
+    {{-- sweetalert --}}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     {{-- icon links --}}
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,700,1,0" />
@@ -28,11 +35,12 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,700,1,200" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,700,1,200" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,700,1,200" />
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
+    
     {{-- stylesheet link --}}
     <link href="{{ url('css/admin/sidemenu.css') }}" rel="stylesheet">
     <link href="{{ url('css/admin/dashboard.css') }}" rel="stylesheet">
-
+    <link href="{{ url('css/admin/studentAccount.css') }}" rel="stylesheet">
     <title>Admin Page</title>
 </head>
 <body>
@@ -55,13 +63,13 @@
         <div class="sidemenu">
             <div class="sidebar">
 
-                <a href="{{url("admin/dashboard")}}" class="@if($title == "Dashboard") active @endif">
+                <a href="{{url("admin/")}}" class="@if($title == "Dashboard") active @endif">
                     <span class="material-symbols-sharp">dashboard</span> 
                     <h3>Dashboard</h3>
                 </a>
-                <a href="{{url("admin/student")}}" class="@if($title == "Student's Account") active @endif">
+                <a href="{{url("admin/student")}}" class="@if($title == "Student Account") active @endif">
                     <span class="material-symbols-sharp">person</span>
-                    <h3>Student's Account</h3>
+                    <h3>Student Account</h3>
                 </a>
                 <a href="{{url("admin/announcement")}}" class="@if($title == "Announcement") active @endif">
                     <span class="material-symbols-sharp">newspaper</span>                        
@@ -85,6 +93,8 @@
         </main>
     </div>
     <script src="/js/admin/sidebar.js"></script>
-    <script src="/js/admin/chart.js"></script>
+    @if($title == "Dashboard")
+        <script src="/js/admin/chart.js"></script>
+    @endif
 </body>
 </html>
