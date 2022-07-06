@@ -10,6 +10,9 @@
     {{-- @foreach ($dateWeek as $data)
         {{$data}}
     @endforeach --}}
-    {{$dateWeek}}
+    {{-- {{$dateWeek}} --}}
+
+    {{$usernameModel}}
+    {{$usernameUser}}
 </body>
 </html>

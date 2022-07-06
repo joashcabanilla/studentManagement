@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminHomeController;
 use App\Http\Controllers\User\UserHomeController;
 use App\Http\Controllers\studentController;
+use App\Http\Controllers\Admin\AdminStudentController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,6 +21,17 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(
         Route::get('/student',[AdminHomeController::class, 'studentAccount']);
         Route::get('/announcement',[AdminHomeController::class, 'announcement']);
         Route::get('/account',[AdminHomeController::class, 'adminAccount']);
+
+        //Student Account CRUD route
+        //create
+        Route::post('/student/create',[AdminStudentController::class, 'createStudent'])->name('createStudent');
+        
+        //update
+        Route::get('/student/edit/{username}',[AdminStudentController::class, 'editStudent']);
+        Route::put('/student/update/{username}',[AdminStudentController::class, 'updateStudent'])->name('updateStudent');
+
+        //delete 
+        Route::get('/student/delete/{username}',[AdminStudentController::class, 'deleteStudent']);
     }   
 );
 
