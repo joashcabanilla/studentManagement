@@ -200,11 +200,25 @@
     height: 3rem;
 }
 
+.importUserSubmit {
+    display: flex;
+    flex-direction: column;
+}
+
+.importUserSubmit button {
+    margin: 0.2rem;
+}
+
 #firstname,
 #middlename,
 #lastname,
 #birthplace,
-#address {
+#address,
+#edit-firstname,
+#edit-middlename,
+#edit-lastname,
+#edit-birthplace,
+#edit-address {
     text-transform: capitalize;
 }
 

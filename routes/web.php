@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminHomeController;
 use App\Http\Controllers\User\UserHomeController;
 use App\Http\Controllers\studentController;
 use App\Http\Controllers\Admin\AdminStudentController;
+use App\Http\Controllers\Admin\ImportExportController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,10 +29,19 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(
         
         //update
         Route::get('/student/edit/{username}',[AdminStudentController::class, 'editStudent']);
-        Route::put('/student/update/{username}',[AdminStudentController::class, 'updateStudent'])->name('updateStudent');
+        Route::put('/student/update/{username}',[AdminStudentController::class, 'updateStudent']);
 
         //delete 
         Route::get('/student/delete/{username}',[AdminStudentController::class, 'deleteStudent']);
+
+
+        //Admin Import and Export route
+        Route::get('/student/import', [ImportExportController::class, 'index']);
+        Route::post('/student/importData', [ImportExportController::class, 'import'])->name('studentImport');
+        Route::get('/student/exportExcel',[ImportExportController::class,'exportExcel']);
+        Route::get('/student/exportCSV',[ImportExportController::class,'exportCSV']);
+        Route::get('/student/exportPDF',[ImportExportController::class,'exportPDF']);
+        Route::get('/student/savePDF',[ImportExportController::class,'savePDF']);
     }   
 );
 

@@ -86,13 +86,57 @@ class AdminStudentController extends Controller
             'address' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'min:6','unique:student','unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:student','unique:users','email:rfc,dns'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'password' => ['nullable','string', 'min:6', 'confirmed'],
         ]);
 
+        //concatenate first,middle,last name
+        $name = $req['lastname'] . ", " . $req['firstname'] . " " . substr($req['middlename'],0,1);
+
         if ($validator->fails()) {
-            return redirect('/admin/student')
-                        ->withErrors($validator, 'studentUpdate')
-                        ->withInput();
+            return response()->json(['status'=>400,'errors'=>$validator->messages()]); 
+        }
+
+        if($req->input('password') == ""){
+            Student::where('username','=',$username)->update([
+                'firstname' => $req->input('firstname'),
+                'middlename' => $req->input('middlename'),
+                'lastname' => $req->input('lastname'),
+                'gender' => $req->input('gender'),
+                'birthdate' => $req->input('birthdate'),
+                'birthplace' => $req->input('birthplace'),
+                'phone_number' => $req->input('phone_number'),
+                'address' => $req->input('address'),
+                'username' => $req->input('username'),
+                'email' => $req->input('email'),
+            ]);
+            User::where('username','=',$username)->update([
+                'name' => strtoupper($name),
+                'username' => $req['username'],
+                'email' => $req['email'],
+            ]);
+            return response()->json(['status'=>200]);
+        }
+        else{
+            Student::where('username','=',$username)->update([
+                'firstname' => $req->input('firstname'),
+                'middlename' => $req->input('middlename'),
+                'lastname' => $req->input('lastname'),
+                'gender' => $req->input('gender'),
+                'birthdate' => $req->input('birthdate'),
+                'birthplace' => $req->input('birthplace'),
+                'phone_number' => $req->input('phone_number'),
+                'address' => $req->input('address'),
+                'username' => $req->input('username'),
+                'email' => $req->input('email'),
+                'password' => Hash::make($req->input('password')),
+            ]);
+            User::where('username','=',$username)->update([
+                'name' => strtoupper($name),
+                'username' => $req['username'],
+                'email' => $req['email'],
+                'password' => Hash::make($req->input('password')),
+            ]);
+            return response()->json(['status'=>200]);
         }
     }
 

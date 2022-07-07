@@ -58,3 +58,7 @@ $("input[name='birthplace']").on('input', function (e) {
 $("#birthdate").change(() => {
     $("#age").val(getAge($("#birthdate").val(), parseInt(year), parseInt(month), parseInt(day)));
 });
+
+$("#edit-birthdate").change(() => {
+    $("#edit-age").val(getAge($("#edit-birthdate").val(), parseInt(year), parseInt(month), parseInt(day)));
+});

@@ -7,10 +7,10 @@
             <button type="button" class="btn btn-success addStudentBtn" data-bs-toggle="modal" data-bs-target="#studentModal">Add New Student</button>
         </div>
         <div class="student-importExport">
-            <a href="user/import" class="btn btn-primary">Import Data</a>
-            <a href="user/exportExcel" class="btn btn-primary">Export Excel</a>
-            <a href="user/exportCSV" class="btn btn-primary">Export CSV</a>
-            <a href="user/exportPDF" class="btn btn-primary">Export PDF</a>
+            <a href="student/import" class="btn btn-primary">Import Data</a>
+            <a href="student/exportExcel" class="btn btn-primary">Export Excel</a>
+            <a href="student/exportCSV" class="btn btn-primary">Export CSV</a>
+            <a href="student/exportPDF" class="btn btn-primary">Export PDF</a>
         </div>
     </div>
     <div class="containerTable">
@@ -45,8 +45,8 @@
                                 <td>{{$item['email']}}</td>
                                 <td>{{$item['phone_number']}}</td>
                                 <td class="action-td">
-                                    <button class="btn btn-success" id="editbtn-{{$item['username']}}"><span id="editbtn-{{$item['username']}}" class="material-symbols-rounded">edit</span></button>
-                                    <button class="btn btn-danger" id="deletebtn-{{$item['username']}}"><span id="deletebtn-{{$item['username']}}" class="material-symbols-rounded">delete</span></button>
+                                    <button class="btn btn-success" id="editbtn_{{$item['username']}}"><span id="editbtn_{{$item['username']}}" class="material-symbols-rounded">edit</span></button>
+                                    <button class="btn btn-danger" id="deletebtn_{{$item['username']}}"><span id="deletebtn_{{$item['username']}}" class="material-symbols-rounded">delete</span></button>
                                 </td>   
                             </tr>
                         @endforeach
@@ -282,10 +282,10 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body studentForm">
-                {{-- create student form --}}
-                <form action="{{route('updateStudent')}}" method="POST">
-                    @csrf
+                {{-- update student form --}}
+                <form method="POST">
                     @method('PUT')
+                    @csrf
                     <div class="formContainer"> 
                         <label for="studentnumber" >{{ __('Student Number') }}</label>
                         
@@ -298,13 +298,10 @@
                        <label for="firstname">{{ __('First Name') }}</label>
                         
                        <div class="formInputContainer">
-                            <input id="edit-firstname" type="text" class="form-control @error('firstname','studentUpdate') is-invalid @enderror" name="firstname" required autocomplete="firstname" autofocus>
-
-                            @error('firstname','studentUpdate')
+                            <input id="edit-firstname" type="text" class="form-control" name="firstname" required autocomplete="firstname" autofocus>
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
+                                    <strong id="studentUpdate-error-firstname"></strong>
                                 </span>
-                            @enderror
                         </div>
                     </div>
 
@@ -312,13 +309,10 @@
                         <label for="middlename">{{ __('Middle Name') }}</label>
                          
                         <div class="formInputContainer">
-                             <input id="edit-middlename" type="text" class="form-control @error('middlename','studentUpdate') is-invalid @enderror" name="middlename" autocomplete="middlename" autofocus>
- 
-                             @error('middlename','studentUpdate')
+                             <input id="edit-middlename" type="text" class="form-control" name="middlename" autocomplete="middlename" autofocus>
                                  <span class="invalid-feedback" role="alert">
-                                     <strong>{{ $message }}</strong>
+                                     <strong id="studentUpdate-error-middlename"></strong>
                                  </span>
-                             @enderror
                          </div>
                      </div>
 
@@ -326,13 +320,10 @@
                         <label for="lastname">{{ __('Last Name') }}</label>
                          
                         <div class="formInputContainer">
-                             <input id="edit-lastname" type="text" class="form-control @error('lastname','studentUpdate') is-invalid @enderror" name="lastname" required autocomplete="lastname" autofocus>
- 
-                             @error('lastname','studentUpdate')
+                             <input id="edit-lastname" type="text" class="form-control" name="lastname" required autocomplete="lastname" autofocus>
                                  <span class="invalid-feedback" role="alert">
-                                     <strong>{{ $message }}</strong>
+                                     <strong id="studentUpdate-error-lastname"></strong>
                                  </span>
-                             @enderror
                          </div>
                      </div>
 
@@ -340,17 +331,14 @@
                         <label for="gender">{{ __('Gender') }}</label>
                          
                         <div class="formInputContainer">
-                            <select name="gender" id="edit-gender" class="form-select @error('gender','studentUpdate') is-invalid @enderror" required autofocus> 
+                            <select name="gender" id="edit-gender" class="form-select" required autofocus> 
                                 <option hidden value="">Select Gender</option>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
                             </select>
- 
-                             @error('gender','studentUpdate')
                                  <span class="invalid-feedback" role="alert">
-                                     <strong>{{ $message }}</strong>
+                                     <strong id="studentUpdate-error-gender"></strong>
                                  </span>
-                             @enderror
                          </div>
                      </div>
 
@@ -358,13 +346,10 @@
                         <label for="birthdate">{{ __('Birthdate') }}</label>
                          
                         <div class="formInputContainer">
-                             <input id="edit-birthdate" type="date" class="form-control @error('birthdate','studentUpdate') is-invalid @enderror" name="birthdate" required autocomplete="birthdate" autofocus>
- 
-                             @error('birthdate','studentUpdate')
+                             <input id="edit-birthdate" type="date" class="form-control" name="birthdate" required autocomplete="birthdate" autofocus>
                                  <span class="invalid-feedback" role="alert">
-                                     <strong>{{ $message }}</strong>
+                                     <strong id="studentUpdate-error-birthdate"></strong>
                                  </span>
-                             @enderror
                          </div>
                      </div>
 
@@ -372,13 +357,10 @@
                         <label for="age">{{ __('Age') }}</label>
                        
                         <div class="formInputContainer">
-                            <input id="edit-age" type="number" class="form-control @error('age','studentUpdate') is-invalid @enderror" name="age" autocomplete="age" readonly>
-
-                            @error('age','studentUpdate')
+                            <input id="edit-age" type="number" class="form-control" name="age" autocomplete="age" readonly>
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
+                                    <strong id="studentUpdate-error-age"></strong>
                                 </span>
-                            @enderror
                         </div>
                     </div>
 
@@ -386,13 +368,10 @@
                         <label for="birthplace">{{ __('Birthplace') }}</label>
                         
                         <div class="formInputContainer">
-                            <input id="edit-birthplace" type="text" class="form-control @error('birthplace','studentUpdate') is-invalid @enderror" name="birthplace" required autocomplete="birthplace" autofocus>
-
-                            @error('birthplace','studentUpdate')
+                            <input id="edit-birthplace" type="text" class="form-control" name="birthplace" required autocomplete="birthplace" autofocus>
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
+                                    <strong id="studentUpdate-error-birthplace"></strong>
                                 </span>
-                            @enderror
                         </div>
                     </div>
 
@@ -403,13 +382,10 @@
                             <div class="phone-register">
                                 <p>+63</p>
                                 <div>
-                                    <input id="edit-phone_number" type="text" class="form-control @error('phone_number','studentUpdate') is-invalid @enderror" name="phone_number" required autocomplete="phone_number" maxlength="10" autofocus>
-                                    
-                                    @error('phone_number','studentUpdate')
+                                    <input id="edit-phone_number" type="text" class="form-control" name="phone_number" required autocomplete="phone_number" maxlength="10" autofocus>
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <strong id="studentUpdate-error-phone_number"></strong>
                                     </span>
-                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -419,13 +395,10 @@
                         <label for="address">{{ __('Address') }}</label>
 
                         <div class="formInputContainer">
-                                <textarea id="edit-address" class="form-control @error('address','studentUpdate') is-invalid @enderror" name="address" required autocomplete="address" autofocus></textarea>
-
-                            @error('address','studentUpdate')
+                                <textarea id="edit-address" class="form-control" name="address" required autocomplete="address" autofocus></textarea>
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
+                                    <strong id="studentUpdate-error-address"></strong>
                                 </span>
-                            @enderror
                         </div>
                     </div>
 
@@ -433,13 +406,10 @@
                         <label for="email">{{ __('Email Address') }}</label>
 
                         <div class="formInputContainer">
-                            <input id="edit-email" type="email" class="form-control @error('email','studentUpdate') is-invalid @enderror" name="email" required autocomplete="email">
-
-                            @error('email','studentUpdate')
+                            <input id="edit-email" type="email" class="form-control" name="email" required autocomplete="email">
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
+                                    <strong id="studentUpdate-error-email"></strong>
                                 </span>
-                            @enderror
                         </div>
                     </div>
 
@@ -447,13 +417,10 @@
                         <label for="username">{{ __('Username') }}</label>
 
                         <div class="formInputContainer">
-                            <input id="edit-username" type="text" class="form-control @error('username','studentUpdate') is-invalid @enderror" name="username" required autocomplete="username" minlength="6" autofocus>
-
-                            @error('username','studentUpdate')
+                            <input id="edit-username" type="text" class="form-control" name="username" required autocomplete="username" minlength="6" autofocus>
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
+                                    <strong id="studentUpdate-error-username"></strong>
                                 </span>
-                            @enderror
                         </div>
                     </div>
 
@@ -461,13 +428,10 @@
                         <label for="password">{{ __('Password') }}</label>
 
                         <div class="formInputContainer">
-                            <input id="edit-password" type="password" class="form-control @error('password','studentUpdate') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                            @error('password','studentUpdate')
+                            <input id="edit-password" type="password" class="form-control" name="password" autocomplete="new-password">
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
+                                    <strong id="studentUpdate-error-password"></strong>
                                 </span>
-                            @enderror
                         </div>
                     </div>
 
@@ -475,14 +439,14 @@
                         <label for="password-confirm">{{ __('Confirm Password') }}</label>
 
                         <div class="formInputContainer">
-                            <input id="edit-password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                            <input id="edit-password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password">
                         </div>
                     </div>
 
                     <div class="registerBtnContainer">
                         <div class="registerBtnContainer1">
-                            <button type="submit" class="btn btn-primary registerBtn">
-                                {{ __('Register') }}
+                            <button type="submit" class="btn btn-primary registerBtn" id="studentUpdateBtn">
+                                {{ __('Update') }}
                             </button>
                         </div>
                     </div>
@@ -498,14 +462,7 @@
             $("#studentModalLabel").text("Create Student Account");
         </script>
       @endif
-
-      @if($errors->studentUpdate->any())
-      <script>
-          $("#studentEditModal").modal("show");
-          $("#studentEditModalLabel").text("Update Student Account");
-      </script>
-    @endif
-
+      
       @if(Session::has('success'))
         <script>
             swal("Saved", "Student Account Successfully Saved", "success");
