@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User\Student;
+use App\Models\Admin\Announcement;
 
 class AdminHomeController extends Controller
 {
@@ -29,7 +30,8 @@ class AdminHomeController extends Controller
     }
     
     public function announcement(){ 
-        return view('admin.announcement',['title'=>'Announcement']);
+        $collection = Announcement::all();
+        return view('admin.announcement',['title'=>'Announcement','collection'=>$collection]);
     }
 
     public function adminAccount(){

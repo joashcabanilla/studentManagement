@@ -9,7 +9,7 @@ $(".userTable").click((e) => {
     if (id.split("_")[0] == "deletebtn") {
         swal({
             title: "",
-            text: `Are you sure you want to delete this user information?`,
+            text: `Are you sure you want to delete this student information?`,
             icon: "warning",
             buttons: ["No", "Yes"],
             dangerMode: true,
@@ -23,7 +23,7 @@ $(".userTable").click((e) => {
     }
 
     if (id.split("_")[0] == "editbtn") {
-        student_username = id.split("_")[1]
+        student_username = id.split("_")[1];
         $.ajax({
             type: "GET",
             url: `student/edit/${student_username}`,
@@ -41,7 +41,11 @@ $(".addStudentBtn").click(() => {
 
 $('#studentModal').on('hidden.bs.modal', function () {
     $(this).find('form').trigger('reset');
-})
+});
+
+$('#studentEditModal').on('hidden.bs.modal', function () {
+    removeErrormsg();
+});
 
 $("#studentUpdateBtn").click((e) => {
     e.preventDefault();
@@ -59,7 +63,7 @@ $("#studentUpdateBtn").click((e) => {
         'username': $("#edit-username").val(),
         'password': $("#edit-password").val(),
         'password_confirmation': $("#edit-password-confirm").val()
-    }
+    };
 
     $.ajaxSetup({
         headers: {
@@ -113,7 +117,9 @@ $("#studentUpdateBtn").click((e) => {
             }
             else {
                 $("#studentEditModal").modal("hide");
-                swal("Saved", "Student Account Successfully Updated", "success");
+                swal("Saved", "Student Account Successfully Updated", "success").then(() => {
+                    document.location.reload();
+                });
                 removeErrormsg();
             }
         }

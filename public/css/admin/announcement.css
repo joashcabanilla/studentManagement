@@ -20,3 +20,51 @@
     width: 50%;
     height: 80%;
 }
+
+.announcementForm .formContainer label {
+    width: 5rem;
+}
+
+.announcementForm .formContainer #content {
+    height: 6rem;
+}
+
+.updateAnnouncementImages-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 0.2rem;
+}
+
+.updateAnnouncementImages-container img {
+    width: 8rem;
+    height: 8rem;
+    margin: 0.5rem;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+    border-radius: 1rem;
+    background: #ffffff;
+    padding: 0.5rem;
+}
+
+@media (min-width: 1024px) {
+    .add-announce-container {
+        justify-content: flex-start;
+    }
+
+    .add-announce-container .addBtn {
+        margin-left: 2rem;
+        width: 30%;
+    }
+
+    .announcementForm .formContainer label {
+        width: 8rem;
+    }
+
+    .announcementForm .formContainer input,
+    .announcementForm .formContainer textarea {
+        width: 20rem;
+    }
+}

@@ -6,6 +6,7 @@ use App\Http\Controllers\User\UserHomeController;
 use App\Http\Controllers\studentController;
 use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\ImportExportController;
+use App\Http\Controllers\Admin\AdminAnnouncementController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -42,6 +43,17 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(
         Route::get('/student/exportCSV',[ImportExportController::class,'exportCSV']);
         Route::get('/student/exportPDF',[ImportExportController::class,'exportPDF']);
         Route::get('/student/savePDF',[ImportExportController::class,'savePDF']);
+
+        //Announcement CRUD Route
+         //create
+         Route::post('/announcement/create',[AdminAnnouncementController::class, 'createAnnouncement'])->name('createAnnouncement');
+
+        //update
+        Route::get('/announcement/edit/{id}',[AdminAnnouncementController::class, 'editAnnouncement']);
+        Route::put('/announcement/update/{id}',[AdminAnnouncementController::class, 'updateAnnouncement']);
+
+        //delete 
+        Route::get('/announcement/delete/{id}',[AdminAnnouncementController::class, 'deleteAnnouncement']);
     }   
 );
 

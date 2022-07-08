@@ -42,7 +42,7 @@
     <link href="{{ url('css/admin/dashboard.css') }}" rel="stylesheet">
     <link href="{{ url('css/admin/studentAccount.css') }}" rel="stylesheet">
     <link href="{{ url('css/admin/announcement.css') }}" rel="stylesheet">
-
+    <link href="{{ url('css/admin/admin.css') }}" rel="stylesheet">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
