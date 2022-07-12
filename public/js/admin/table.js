@@ -1,4 +1,5 @@
 let student_username = "";
+let email = "";
 
 $(document).ready(function () {
     $('.userTable').DataTable();
@@ -28,6 +29,7 @@ $(".userTable").click((e) => {
             type: "GET",
             url: `student/edit/${student_username}`,
             success: (response) => {
+                email = response.student[0].email;
                 updateStudent(response);
             }
         });
@@ -73,7 +75,7 @@ $("#studentUpdateBtn").click((e) => {
 
     $.ajax({
         type: "PUT",
-        url: `student/update/${student_username}`,
+        url: `student/update/${student_username}/${email}`,
         data: data,
         dataType: "json",
         success: (response) => {

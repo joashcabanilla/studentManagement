@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Imports\studentImport;
@@ -19,7 +18,6 @@ class ImportExportController extends Controller
 
     public function import(Request $req){
         Excel::Import(new studentImport, $req->file);
-        Excel::Import(new userImport, $req->file);
         return redirect('/admin/student');
     }
 

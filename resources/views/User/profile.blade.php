@@ -7,7 +7,7 @@
             <img src="/studentProfile/{{$profile}}" id="studentProfilePicture">
         </div>
         <div class="student-info">
-            <form action="{{url("user/update/".$data[0]->username)}}" method="POST" enctype="multipart/form-data">
+            <form action="{{url("user/update/". $data[0]->username . "/" . $data[0]->email)}}" method="POST" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
 

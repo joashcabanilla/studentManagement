@@ -30,7 +30,7 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(
         
         //update
         Route::get('/student/edit/{username}',[AdminStudentController::class, 'editStudent']);
-        Route::put('/student/update/{username}',[AdminStudentController::class, 'updateStudent']);
+        Route::put('/student/update/{username}/{email}',[AdminStudentController::class, 'updateStudent']);
 
         //delete 
         Route::get('/student/delete/{username}',[AdminStudentController::class, 'deleteStudent']);
@@ -68,7 +68,7 @@ Route::prefix('user')->middleware(['auth','isUser'])->group(
         Route::get('/profile/{id}',[UserHomeController::class, 'profile']);
         
         //Student Proflie Update
-        Route::put('/update/{username}',[UserHomeController::class, 'updateStudent']);
+        Route::put('/update/{username}/{email}',[UserHomeController::class, 'updateStudent']);
     }
 );
 

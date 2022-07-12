@@ -10,6 +10,7 @@ use App\Models\Admin\Announcement;
 use App\Models\Admin\AnnouncementImages;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class UserHomeController extends Controller
 {
@@ -38,7 +39,7 @@ class UserHomeController extends Controller
         return view('user.profile',['title' => 'Student Profile','username' => $username, 'data' => $collection, 'profile'=> $profile]);   
     }
 
-    public function updateStudent(Request $req, $username){
+    public function updateStudent(Request $req, $username, $email){
         $validator = Validator::make($req->all(),[
             'firstname' => ['required', 'string', 'max:255','min:2'],
             'middlename' => ['nullable','string', 'min:2'],
@@ -49,8 +50,8 @@ class UserHomeController extends Controller
             'birthplace' => ['required', 'string', 'max:255'],
             'phone_number' => ['required','min:10', 'max:10'],
             'address' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'min:6','unique:student','unique:users'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:student','unique:users','email:rfc,dns'],
+            'username' => ['required', 'string', 'min:6', Rule::unique('student')->ignore($username, 'username')],
+            'email' => ['required', 'string', 'email', 'max:255','email:rfc,dns',Rule::unique('student')->ignore($email, 'email')],
             'password' => ['nullable','string', 'min:6', 'confirmed'],
         ]);
 
