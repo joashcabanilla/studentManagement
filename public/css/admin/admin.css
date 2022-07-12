@@ -32,8 +32,26 @@
     }
 }
 
+@media (min-width: 1024px) {
+    #adminForm label {
+        width: 12rem;
+    }
+
+    #adminForm input {
+        width: 16rem;
+    }
+
+    .admin-container {
+        width: 70%;
+    }
+}
+
 @media (min-width: 1200px) {
     .admin-container {
         width: 50%;
+    }
+
+    #adminForm input {
+        width: 18rem;
     }
 }

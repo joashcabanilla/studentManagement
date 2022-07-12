@@ -23,6 +23,7 @@ class student extends Model
         'address',
         'email',
         'username',
-        'password'
+        'password',
+        'profile'
     ];
 }

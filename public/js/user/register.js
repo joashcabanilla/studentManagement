@@ -62,3 +62,8 @@ $("#birthdate").change(() => {
 $("#edit-birthdate").change(() => {
     $("#edit-age").val(getAge($("#edit-birthdate").val(), parseInt(year), parseInt(month), parseInt(day)));
 });
+
+$("#images").change((e) => {
+    let image = URL.createObjectURL(e.target.files[0]);
+    $("#studentProfilePicture").attr("src", image);
+});

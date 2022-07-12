@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Admin\Announcement;
 use App\Models\Admin\AnnouncementImages;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class AdminAnnouncementController extends Controller
 {
@@ -86,5 +88,39 @@ class AdminAnnouncementController extends Controller
         $announcementModel->delete();
         AnnouncementImages::where('announcement_id','=',$id)->delete();
         return redirect('/admin/announcement')->with('deleted','Announcement Successfully Deleted');
+    }
+
+    public function updateAdmin(Request $req){
+
+        $validator = Validator::make($req->all(),[
+            'name' => ['required', 'string', 'max:255', 'min:2'],
+            'username' => ['required', 'string', 'min:6','unique:student','unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:student','unique:users','email:rfc,dns'],
+            'password' => ['nullable','string', 'min:6', 'confirmed']
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/admin/account')
+                        ->withErrors($validator, 'adminUpdate')
+                        ->withInput();
+        }
+
+        if($req->password == ""){
+            User::find(1)->update([
+                'name' => $req->name,
+                'username' => $req->username,
+                'email' => $req->email
+            ]);
+        }
+        else{
+            User::find(1)->update([
+                'name' => $req->name,
+                'username' => $req->username,
+                'email' => $req->email,
+                'password' => Hash::make($req->password)
+            ]);
+        }
+
+        return redirect('/admin/account')->with('success','Admin Account Successfully Updated');
     }
 }

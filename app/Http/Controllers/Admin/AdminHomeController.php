@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User\Student;
 use App\Models\Admin\Announcement;
+use App\Models\User;
 
 class AdminHomeController extends Controller
 {
@@ -35,6 +36,7 @@ class AdminHomeController extends Controller
     }
 
     public function adminAccount(){
-        return view('admin.adminAccount',['title'=>"Admin Account"]);
+        $admin = User::find(1);
+        return view('admin.adminAccount',['title'=>"Admin Account", 'admin' => $admin]);
     }
 }

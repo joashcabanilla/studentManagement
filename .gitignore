@@ -2,6 +2,7 @@
 /public/hot
 /public/storage
 /public/AnnouncementImages
+/public/studentProfile
 /storage/*.key
 /vendor
 .env

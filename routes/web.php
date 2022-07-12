@@ -54,6 +54,10 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(
 
         //delete 
         Route::get('/announcement/delete/{id}',[AdminAnnouncementController::class, 'deleteAnnouncement']);
+
+
+        //Admin Account Update Route
+        Route::put('/admin/update',[AdminAnnouncementController::class, 'updateAdmin'])->name('updateAdmin');
     }   
 );
 
@@ -61,6 +65,10 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(
 Route::prefix('user')->middleware(['auth','isUser'])->group(
     function () {
         Route::get('/',[UserHomeController::class, 'index'])->name('user.index');
+        Route::get('/profile/{id}',[UserHomeController::class, 'profile']);
+        
+        //Student Proflie Update
+        Route::put('/update/{username}',[UserHomeController::class, 'updateStudent']);
     }
 );
 
