@@ -12,7 +12,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -62,7 +62,7 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(
 );
 
 //user views
-Route::prefix('user')->middleware(['auth','isUser'])->group(
+Route::prefix('user')->middleware(['auth','verified','isUser'])->group(
     function () {
         Route::get('/',[UserHomeController::class, 'index'])->name('user.index');
         Route::get('/profile/{id}',[UserHomeController::class, 'profile']);
