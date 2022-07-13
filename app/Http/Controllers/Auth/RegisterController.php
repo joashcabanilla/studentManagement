@@ -53,6 +53,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
+            'fullname' => ['required', 'string', 'unique:users,name']
             'firstname' => ['required', 'string', 'max:255','min:2'],
             'middlename' => ['nullable','string', 'min:2'],
             'lastname' => ['required', 'string', 'max:255','min:2'],
@@ -90,30 +91,30 @@ class RegisterController extends Controller
             $studentNo = date('Y')."-".sprintf("%04d", 1);
          }
 
-         //create account for student table
-        Student::create([
-            'studentNumber' => $studentNo,
-            'firstname' => $data['firstname'],
-            'middlename' => $data['middlename'],
-            'lastname' => $data['lastname'],
-            'gender' => $data['gender'],
-            'birthdate' => $data['birthdate'],
-            'age' => $data['age'],
-            'birthplace' => $data['birthplace'],
-            'phone_number' => $data['phone_number'],
-            'address' => $data['address'],
-            'email' => $data['email'],
-            'username' => $data['username'],
-            'password' => Hash::make($data['password']),
-        ]);
+             // create account for student table
+             Student::create([
+                'studentNumber' => $studentNo,
+                'firstname' => $data['firstname'],
+                'middlename' => $data['middlename'],
+                'lastname' => $data['lastname'],
+                'gender' => $data['gender'],
+                'birthdate' => $data['birthdate'],
+                'age' => $data['age'],
+                'birthplace' => $data['birthplace'],
+                'phone_number' => $data['phone_number'],
+                'address' => $data['address'],
+                'email' => $data['email'],
+                'username' => $data['username'],
+                'password' => Hash::make($data['password']),
+            ]);
 
-        //create account for users table
-       return User::create([
-            'name' => strtoupper($name),
-            'username' => $data['username'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+            //create account for users table
+            return User::create([
+                'name' => strtoupper($name),
+                'username' => $data['username'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+            ]);
     }
 
     public function showRegistrationForm(){
@@ -126,7 +127,7 @@ class RegisterController extends Controller
          else{
             $studentNo = date('Y')."-".sprintf("%04d", 1);
          }
-        return view('auth.register',['studentNumber'=>$studentNo]);
+        return view('auth.register',['studentNumber'=>$studentNo, 'nameError' => '']);
     }
 
     // public function register(Request $request)

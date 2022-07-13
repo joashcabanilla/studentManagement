@@ -12,7 +12,7 @@
     @endforeach --}}
     {{-- {{$dateWeek}} --}}
 
-    {{$usernameModel}}
-    {{$usernameUser}}
+    {{-- {{$usernameModel}}
+    {{$usernameUser}} --}}
 </body>
 </html>

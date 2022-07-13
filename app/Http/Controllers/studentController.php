@@ -19,11 +19,17 @@ class studentController extends Controller
 
 //   return view('student',['dateWeek'=>$date]);
 //  }   
+
 public function index(){
-    $studentModel = Student::where("username", "=", "joash1")->get();
-    $userModel = User::where("username", "=", "joash1")->get();
+    // $studentModel = Student::where("username", "=", "joash1")->get();
+    // $userModel = User::where("username", "=", "joash1")->get();
     // $studentModel->delete();
     // $userModel->delete();
-    return view("student", ["usernameModel"=>$studentModel, "usernameUser"=>$userModel]);
+    // return view("student", ["usernameModel"=>$studentModel, "usernameUser"=>$userModel]);
+
+    $nameExist = Student::where('firstname', '=', 'ashfirst')->where('middlename', '=', 'ash')->where('lastname', '=', 'ash')->count();
+    
+    dd($nameExist);
+    return view("student");
 }
 }
