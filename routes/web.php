@@ -62,7 +62,7 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(
 );
 
 //user views
-Route::prefix('user')->middleware(['auth','verified','isUser'])->group(
+Route::prefix('user')->middleware(['auth','isUser'])->group(
     function () {
         Route::get('/',[UserHomeController::class, 'index'])->name('user.index');
         Route::get('/profile/{id}',[UserHomeController::class, 'profile']);
