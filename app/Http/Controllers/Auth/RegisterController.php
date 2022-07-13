@@ -129,10 +129,10 @@ class RegisterController extends Controller
         return view('auth.register',['studentNumber'=>$studentNo]);
     }
 
-    public function register(Request $request)
-    {
-        $this->validator($request->all())->validate();
-        event(new Registered($user = $this->create($request->all())));
-        return redirect($this->redirectPath())->with('message', 'account successfully registered');
-    }
+    // public function register(Request $request)
+    // {
+    //     $this->validator($request->all())->validate();
+    //     event(new Registered($user = $this->create($request->all())));
+    //     return redirect($this->redirectPath())->with('message', 'account successfully registered');
+    // }
 }
