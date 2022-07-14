@@ -81,6 +81,7 @@ $("#studentUpdateBtn").click((e) => {
         success: (response) => {
             if (response.status == 400) {
                 let errors = response.errors;
+                console.log(response.errors);
                 errors.firstname != undefined ? $("#edit-firstname").addClass("is-invalid") : $("#edit-firstname").removeClass("is-invalid");
                 errors.firstname != undefined ? $("#studentUpdate-error-firstname").text(errors.firstname[0]) : null;
 
@@ -161,3 +162,32 @@ const updateStudent = (res) => {
     $("#edit-email").val(student.email);
     $("#edit-username").val(student.username);
 }
+
+//set the value of fullname
+$("#firstname").change(() => {
+    $("#fullname").val(`${$("#lastname").val()}, ${$("#firstname").val()} ${$("#middlename").val()}`);
+});
+
+$("#middlename").change(() => {
+    $("#fullname").val(`${$("#lastname").val()}, ${$("#firstname").val()} ${$("#middlename").val()}`);
+});
+
+$("#lastname").change(() => {
+    $("#fullname").val(`${$("#lastname").val()}, ${$("#firstname").val()} ${$("#middlename").val()}`);
+});
+
+//set the value of fullname for update student account
+$("#edit-firstname").change(() => {
+    $("#edit-fullname").val(`${$("#edit-lastname").val()}, ${$("#edit-firstname").val()} ${$("##edit-middlename").val()}`);
+    console.log($("#edit-fullname").val());
+});
+
+$("#edit-middlename").change(() => {
+    $("#edit-fullname").val(`${$("#edit-lastname").val()}, ${$("#edit-firstname").val()} ${$("#edit-middlename").val()}`);
+    console.log($("#edit-fullname").val());
+});
+
+$("#edit-lastname").change(() => {
+    $("#edit-fullname").val(`${$("#edit-lastname").val()}, ${$("#edit-firstname").val()} ${$("#edit-middlename").val()}`);
+    console.log($("#edit-fullname").val());
+});

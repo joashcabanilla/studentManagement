@@ -67,3 +67,17 @@ $("#images").change((e) => {
     let image = URL.createObjectURL(e.target.files[0]);
     $("#studentProfilePicture").attr("src", image);
 });
+
+
+//set the value of fullname
+$("#firstname").change(() => {
+    $("#fullname").val(`${$("#lastname").val()}, ${$("#firstname").val()} ${$("#middlename").val()}`);
+});
+
+$("#middlename").change(() => {
+    $("#fullname").val(`${$("#lastname").val()}, ${$("#firstname").val()} ${$("#middlename").val()}`);
+});
+
+$("#lastname").change(() => {
+    $("#fullname").val(`${$("#lastname").val()}, ${$("#firstname").val()} ${$("#middlename").val()}`);
+});

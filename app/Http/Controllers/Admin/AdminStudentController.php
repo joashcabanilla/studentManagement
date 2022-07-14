@@ -15,7 +15,8 @@ use DB;
 class AdminStudentController extends Controller
 {
     public function createStudent(Request $req){
-        $validator = Validator::make($req->all(),[
+        $rules = [
+            'name' => ['required', 'string', 'unique:users'],
             'firstname' => ['required', 'string', 'max:255','min:2'],
             'middlename' => ['nullable','string', 'min:2'],
             'lastname' => ['required', 'string', 'max:255','min:2'],
@@ -28,7 +29,13 @@ class AdminStudentController extends Controller
             'username' => ['required', 'string', 'min:6','unique:student','unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:student','unique:users','email:rfc,dns'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
-        ]);
+        ];
+
+        $messages = [
+            'name.unique' => 'the name that you entered is already registered',
+        ];
+
+        $validator = Validator::make($req->all(), $rules, $messages);
 
         if ($validator->fails()) {
             return redirect('/admin/student')
@@ -37,7 +44,7 @@ class AdminStudentController extends Controller
         }
         
         //concatenate first,middle,last name
-        $name = $req['lastname'] . ", " . $req['firstname'] . " " . substr($req['middlename'],0,1);
+        $name = $data['lastname'] . ", " . $data['firstname'] . " " . $data['middlename'];
 
         //create account for student table
         Student::create([
@@ -75,7 +82,8 @@ class AdminStudentController extends Controller
     }
 
     public function updateStudent(Request $req, $username, $email){
-        $validator = Validator::make($req->all(),[
+        $rules = [
+            'name' => ['required', 'string', 'unique:users'],
             'firstname' => ['required', 'string', 'max:255','min:2'],
             'middlename' => ['nullable','string', 'min:2'],
             'lastname' => ['required', 'string', 'max:255','min:2'],
@@ -88,10 +96,16 @@ class AdminStudentController extends Controller
             'username' => ['required', 'string', 'min:6',Rule::unique('student')->ignore($username, 'username')],
             'email' => ['required', 'string', 'email', 'max:255','email:rfc,dns', Rule::unique('student')->ignore($email, 'email')],
             'password' => ['nullable','string', 'min:6', 'confirmed'],
-        ]);
+        ];
+
+        $messages = [
+            'name.unique' => 'the name that you entered is already registered',
+        ];
+        
+        $validator = Validator::make($req->all(),$rules, $messages);
 
         //concatenate first,middle,last name
-        $name = $req['lastname'] . ", " . $req['firstname'] . " " . substr($req['middlename'],0,1);
+        $name = $data['lastname'] . ", " . $data['firstname'] . " " . $data['middlename'];
 
         if ($validator->fails()) {
             return response()->json(['status'=>400,'errors'=>$validator->messages()]); 

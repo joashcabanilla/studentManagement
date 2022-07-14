@@ -11,15 +11,14 @@
                 </div>
 
                 <div class="card-body bodyRegister">
-                    @if($nameError != "")
-                    <div class="alert alert-danger" role="alert">
-                        {{$nameError}}
-                    </div>
-                    @endif
+                    @error('name')
+                    <div class="alert alert-danger" role="alert">{{$message}}</div>
+                    @enderror
+
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
-                        <input type="text" class="form-control" name="fullname" hidden />
+                        <input id="fullname" type="text" class="form-control" name="name" hidden />
                         <div class="row mb-3">
                             <label for="firstname" class="col-md-4 col-form-label text-md-end">{{ __('First Name') }}</label>
 

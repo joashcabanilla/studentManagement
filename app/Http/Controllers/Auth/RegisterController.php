@@ -51,9 +51,9 @@ class RegisterController extends Controller
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'fullname' => ['required', 'string', 'unique:users,name']
+    {   
+        $rules = [
+            'name' => ['required', 'string', 'unique:users'],
             'firstname' => ['required', 'string', 'max:255','min:2'],
             'middlename' => ['nullable','string', 'min:2'],
             'lastname' => ['required', 'string', 'max:255','min:2'],
@@ -66,7 +66,13 @@ class RegisterController extends Controller
             'username' => ['required', 'string', 'min:6','unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users','email:rfc,dns'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
-        ]);
+        ];
+
+        $message = [
+            'name.unique' => 'the name that you entered is already registered',
+        ];
+
+        return Validator::make($data, $rules, $message);
     }
 
     /**
@@ -78,7 +84,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         //concatenate first,middle,last name
-        $name = $data['lastname'] . ", " . $data['firstname'] . " " . substr($data['middlename'],0,1);
+        $name = $data['lastname'] . ", " . $data['firstname'] . " " . $data['middlename'];
         
         //generate new student number
         $studentNumber = Student::max('studentNumber');
@@ -110,7 +116,7 @@ class RegisterController extends Controller
 
             //create account for users table
             return User::create([
-                'name' => strtoupper($name),
+                'name' => $name,
                 'username' => $data['username'],
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
